@@ -7,17 +7,17 @@ class PrioritizedReplayBuffer:
         self.alpha = alpha
         self.beta_start = beta
         self.beta_frames = beta_frames
-        self.frame = 1
+        self.frame = 0
         self.Tree = SumTree(capacity)
         self.max_priority = 1.0
 
     def beta_by_frame(self):
-        self.frame += 1
         self.beta = min(1.0, self.beta + (1.0 - self.beta_start) / self.beta_frames)
 
     def add_priorities(self, state, action, reward, next_state, done):
         experience = (state, action, reward, next_state, done)
         self.Tree.add(self.max_priority, experience)
+        self.frame += 1
 
     def update_priorities(self, td_errors, indices):
         for idx, error in zip(indices, td_errors):
