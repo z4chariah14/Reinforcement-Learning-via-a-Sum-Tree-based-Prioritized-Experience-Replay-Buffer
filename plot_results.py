@@ -16,7 +16,7 @@ try:
     print(f"Loaded Uniform scores: {len(uniform_scores)} episodes")
 except FileNotFoundError:
     print(
-        "Error: Could not find .npy files. Make sure they are in the 'results' folder!"
+        "Error: Could not find .npy files."
     )
     exit()
 
